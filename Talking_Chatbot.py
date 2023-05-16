@@ -87,5 +87,14 @@ if __name__ == "__main__":
             ip = requests.get('http://api.ipify.org').text
             print(f'your ip address is {ip}')
             speak(f'your ip address is {ip}')
-        elif 'open command prompt' in query:
+
+        elif 'command prompt' in query:
             os.system('start cmd')
+
+        elif 'open zoom meeting' in query:
+            spath = "C:\\Users\\ACER\\AppData\\Roaming\\Zoom\\bin\\Zoom.exe"
+            os.startfile(spath)
+
+        elif 'open telegram' in query:
+            spath = "C:\\Users\\ACER\\AppData\\Roaming\\Telegram Desktop\\Telegram.exe"
+            os.startfile(spath)
