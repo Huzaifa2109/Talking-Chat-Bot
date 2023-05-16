@@ -88,7 +88,7 @@ if __name__ == "__main__":
             print(f'your ip address is {ip}')
             speak(f'your ip address is {ip}')
 
-        elif 'command prompt' in query:
+        elif 'open command prompt' in query:
             os.system('start cmd')
 
         elif 'open zoom meeting' in query:
