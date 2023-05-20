@@ -1,3 +1,4 @@
+import random
 import pyttsx3
 import datetime
 import speech_recognition as sr
@@ -6,6 +7,8 @@ import requests
 import json
 import webbrowser
 import os
+import pywhatkit as kit
+import smtplib
 
 
 
@@ -14,6 +17,12 @@ voices = engine.getProperty('voices')
 engine.setProperty('voice',voices[1].id)
 
 author = 'Hzaifa'
+mySelf = ''' My name is Naaz.
+            My creator name is Khan Hzaifa.
+            He started Naaz project in April 2023.
+            Currently i am in my initial phase but soon i will be in my AI phase.
+            '''
+myCreator = 'I am Naaz. My Crator and Owner name is Khan Hzaifa.'
 
 def speak(audio):
     engine.say(audio)
@@ -46,11 +55,20 @@ def myvoice():
         return 'None'
     return query
 
+def sendEmail(to,content):
+    server = smtplib.SMTP('smtp.gmail.com',587)
+    server.ehlo()
+    server.starttls()
+    server.login('your email address', 'your password')
+    server.send('your ggmail address',to,content)
+    server.close()
+
 if __name__ == "__main__":
     #speak(f"Welcome {author} , I am Naaz")
     wish()
     #myvoice()
     if 1:
+
         query = myvoice().lower()
         if 'wikipedia' and 'who' in query:
             speak('Searching Wikipedia....')
@@ -59,6 +77,12 @@ if __name__ == "__main__":
             speak('According to wikipedia')
             print(result)
             speak(result)
+
+        elif 'tell me about yourself' in query:
+            speak(mySelf)
+
+        elif ('your creator name' in query) or ('your owner name' in query):
+            speak(myCreator)
         
         elif 'news' in query:
             query = query.replace('news','')
@@ -98,3 +122,33 @@ if __name__ == "__main__":
         elif 'open telegram' in query:
             spath = "C:\\Users\\ACER\\AppData\\Roaming\\Telegram Desktop\\Telegram.exe"
             os.startfile(spath)
+
+        elif 'play music' in query:
+            mus_lib = 'D:\\AI Chatbot\\Talking-Chat-Bot\\music'
+            mus = os.listdir(mus_lib)
+            print(mus)
+            n = random.randint(0,(len(mus)-1))
+            print(n+1,mus[n])
+            os.startfile(os.path.join(mus_lib,mus[n]))
+
+        elif 'play youtube' in query:
+            speak('What should you want to search on youtube?')
+            req = myvoice().lower()
+            kit.playonyt(f'{req}')
+
+        elif 'send message' in query:
+            speak('To whom to send the message?')
+            num = input('Enter number : ')
+            speak('What do you want to send?')
+            msg = myvoice().lower()
+            speak('Please enter time')
+            H = int(input('Enter hour : '))
+            M = int(input('Enter minutes : '))
+            kit.sendwhatmsg(num, msg,H,M)
+
+        elif 'send email' in query:
+            speak('What should i send sir?')
+            content = myvoice().lower()
+            speak("To whom to send the mail?, Enter email address")
+            to = input('Enter email : ')
+            sendEmail(to,content)
