@@ -144,7 +144,7 @@ if __name__ == "__main__":
             speak('Please enter time')
             H = int(input('Enter hour : '))
             M = int(input('Enter minutes : '))
-            kit.sendwhatmsg(num, msg,H,M)
+            kit.sendwhatmsg(num, msg, H, M)
 
         elif 'send email' in query:
             speak('What should i send sir?')
